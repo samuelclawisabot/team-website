@@ -13,8 +13,8 @@ interface ProjectProposal {
 
 const projects: ProjectProposal[] = [
   {
-    title: 'Geo-Search Integration Hub',
-    description: 'Seamlessly integrate vector search capabilities with geospatial data pipelines. Real-time map annotations powered by semantic understanding.',
+    title: 'Geo-Search Hub',
+    description: 'Integrate vector search with geospatial data for real-time map annotations.',
     overlaps: [
       { name: 'Jenkins' },
       { name: 'DOC OC' },
@@ -23,8 +23,8 @@ const projects: ProjectProposal[] = [
     icon: '🔗'
   },
   {
-    title: 'Spatial Knowledge Graph',
-    description: 'Map entity relationships across geospatial dimensions. Visualize connections between locations, organizations, and events.',
+    title: 'Knowledge Graph',
+    description: 'Map entity relationships across locations, organizations, and events.',
     overlaps: [
       { name: 'SAM' },
       { name: 'Jenkins' },
@@ -33,8 +33,8 @@ const projects: ProjectProposal[] = [
     icon: '🕸️'
   },
   {
-    title: 'AI Route Optimizer',
-    description: 'ML-powered intelligent route planning considering traffic patterns, terrain data, and real-time conditions.',
+    title: 'Route Optimizer',
+    description: 'ML-powered route planning with traffic & terrain data.',
     overlaps: [
       { name: 'DOC OC' },
       { name: 'SAM' },
@@ -43,8 +43,8 @@ const projects: ProjectProposal[] = [
     icon: '🚀'
   },
   {
-    title: 'Semantic Map Explorer',
-    description: 'Natural language interface for map exploration. Ask questions about maps and get location-based insights.',
+    title: 'Map Explorer',
+    description: 'Natural language interface for map exploration and location insights.',
     overlaps: [
       { name: 'Jenkins' },
       { name: 'SAM' },
@@ -53,8 +53,8 @@ const projects: ProjectProposal[] = [
     icon: '🗺️💬'
   },
   {
-    title: 'GeoVis Analytics Dashboard',
-    description: 'Real-time geospatial visualization and analytics. Track patterns, hotspots, and trends across your map data.',
+    title: 'Analytics Dashboard',
+    description: 'Real-time geospatial visualization and trend tracking.',
     overlaps: [
       { name: 'SAM' },
       { name: 'Rick' },
@@ -87,39 +87,31 @@ export default function ProjectProposals() {
 
 function ProjectNode({ project }: { project: ProjectProposal }) {
   return (
-    <article className="hex-node glass rounded-2xl p-6 relative overflow-hidden hover-lift fade-enter" style={{ animationDelay: '150ms' }}>
+    <article className="glass rounded-2xl p-5 relative overflow-hidden hover-lift fade-enter h-full flex flex-col" style={{ animationDelay: '150ms' }}>
       {/* Main content visible always */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-3">
-          <span className="text-2xl">{project.icon}</span>
-          <h3 className="text-xl font-semibold">{project.title}</h3>
+      <div className="flex-1 space-y-3 flex flex-col">
+        <div className="flex items-start gap-2">
+          <span className="text-xl flex-shrink-0">{project.icon}</span>
+          <h3 className="text-lg font-semibold leading-tight">{project.title}</h3>
         </div>
         
-        <p className="text-sm text-[rgba(255,255,255,0.7)] leading-relaxed">
+        <p className="text-xs text-[rgba(255,255,255,0.7)] leading-relaxed flex-1 line-clamp-3">
           {project.description}
         </p>
 
-        <div className="flex flex-wrap gap-1 pt-2">
-          {project.overlaps.map((overlap, idx) => (
+        <div className="flex flex-wrap gap-1 pt-1">
+          {project.overlaps.slice(0, 2).map((overlap, idx) => (
             <span 
               key={idx}
-              className="px-2 py-1 rounded-full text-xs glass"
-              style={{ animationDelay: `${idx * 50}ms` }}
+              className="px-2 py-0.5 rounded-full text-xs glass"
             >
               {overlap.name}
             </span>
           ))}
+          {project.overlaps.length > 2 && (
+            <span className="text-xs text-[rgba(255,255,255,0.5)]">+{project.overlaps.length - 2}</span>
+          )}
         </div>
-      </div>
-
-      {/* Hidden content revealed on hover */}
-      <div className="hex-content glass rounded-lg p-4 space-y-2">
-        <h4 className="text-sm font-semibold text-primary">Deliverables</h4>
-        <ul className="text-xs text-[rgba(255,255,255,0.7)] space-y-1">
-          <li>• Interactive prototype with live map integration</li>
-          <li>• API documentation and open source library</li>
-          <li>• Demo presentation for team review</li>
-        </ul>
       </div>
     </article>
   );
